@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr-fr">
+<head>
+	<title>Advance Acoustics</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<script>
+			var lat = 48.853466; var lon = 2.348131; var macarte = null; var villes = {
+				"Saturn Elektrohandels GmbH": { "lat": 52.437937, "lon": 13.262166 },
+				"Reydis one Av": { "lat": 36.700199, "lon": -4.494761 },
+				"Metex": { "lat": 55.689887, "lon": 37.621683 },
+				"Dhhd Audio": { "lat": -32.981484, "lon": 27.907669 },
+				"Daa Woong Inc.": { "lat": 37.492224, "lon": 127.014796 },
+				"Videotron": { "lat": 45.391307, "lon": -73.578241 },
+				"Metex": { "lat": 55.689887, "lon": 37.621683 },
+			}; function initMap() {
+					macarte = L.map('map').setView([lat, lon], 4); L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', { attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' + '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+					id: 'mapbox/streets-v11',
+					tileSize: 512,
+					zoomOffset: -1	
+			}).addTo(macarte); for (ville in villes) {	var marker = L.marker([villes[ville].lat, villes[ville].lon]).addTo(macarte); marker.bindPopup(ville); } } 
+			window.onload = function(){ initMap(); macarte.scrollWheelZoom.disable(); };
+		</script>
+	<link rel="icon" type="image/ico" href="img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/aos.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body id="top">
+	<header id="navbar">
+		<div id="menu1" class="container">
+			<a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-lock" aria-hidden="true"></i></a>
+		</div>
+		<div id="menu2" class="container">
+			<a href="index.html" id="logo"><img src="img/logo.gif" alt=""></a>
+			<input class="burger fa" type="checkbox">
+			<nav>
+				<ul>
+					<li>
+						<a href="#">Elements intégrés</a>
+						<ul class="sous-menu">
+							<li><a href="#">Pré-ampli</a></li>
+							<li><a href="#">Ampli puissance stéréo</a></li>
+							<li><a href="#">Lecteurs multimedia</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">Enceintes HiFi</a>
+						<ul class="sous-menu">
+							<li><a href="#">Colonnes</a></li>
+							<li><a href="#">Subwoofer</a></li>
+							<li><a href="#">Enceintes sans fil</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">Multimédia & Sans fil</a>
+						<ul class="sous-menu">
+							<li><a href="#">Chaîne compact</a></li>
+							<li><a href="#">Transmetteur HiFi</a></li>
+							<li><a href="#">Lecteur réseau WiFi</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>	
+		</div>
+		<div class="progress-container">
+			<div class="progress-bar" id="myBar"></div>
+		</div>
+	</header>
+	<main>
+		<div id="diaporama">
+				<figure class="touch">
+					<img srcset="img/diapo-ks11-768.jpg 768w, img/diapo-ks11.jpg 1920w" sizes="100vw" src="img/diapo-ks11.jpg" alt="">
+					<img srcset="img/diapo-air50-768.jpg 768w, img/diapo-air50.jpg 1920w" sizes="100vw" src="img/diapo-air50.jpg" alt="">
+					<img srcset="img/diapo-xl1000-768.jpg 768w, img/diapo-xl1000.jpg 1920w" sizes="100vw" src="img/diapo-xl1000.jpg" alt="">
+				</figure>
+		</div>
+		<section id="intro" class="container clearfix">
+			<h1>Advance Acoustic : chaînes Haute Fidélité</h1>
+			<img src="img/electronique.png" alt="">
+			<p>Advance Acoustic s'engage à apprivoiser vos oreilles car, le plaisir d'écouter du Bon Son passe surtout par un Bon Matériel.</p>
+			<p>Pour répondre à l'attente des mélomanes les plus exigeants qui portent une attention particulière au résultat final de leur système audio et qui consacrent une part importante de leurs loisirs à l'écoute de la musique, nous avons créé des amplificateur, pré-amplificateurs, lecteurs CD et lecteur multimédia, et un ensemble Haute Fidélité « all in one » dont les capacités musicales raviront les plus exigeants.</p>
+		</section>
+		<section id="last" class="container clearfix">
+			<div><h2>Derniers produits</h2></div>
+			<a href="#">
+				<article>
+					<h3>DX1</h3>
+					<img src="img/dx1.jpg" alt="">
+				</article>
+			</a>
+			<a href="#">
+				<article>
+					<h3>BX1</h3>
+					<img src="img/bx1.jpg" alt="">
+				</article>
+			</a>
+			<a href="#">
+				<article>
+					<h3>XA1200</h3>
+					<img src="img/xa1200.jpg" alt="">
+				</article>
+			</a>
+			<a href="#">
+				<article>
+					<h3>XI-50</h3>
+					<img src="img/x-i50-bt.jpg" alt="">
+				</article>
+			</a>
+
+		</section> 
+		<section id="parallax">
+			<div>
+				<h2>WTX Microstreamer</h2>
+				<p>Le plus petit lecteur réseau Plug & Play multiroom du monde</p>
+			</div>
+			
+		</section> 
+		<div id="focus">
+			<article>
+				<h2>Présentation</h2>
+				<p>Advance Acoustic présente le nouveau système connecté Advance Acoustic WTX-Microstreamer associé aux enceintes colonnes Air 150.</p>
+				<p>Ce système intègre un amplificateur de 2x120 Watts, un lecteur réseau Wi-Fi, un récepteur Bluetooth et des entrées auxiliaires analogiques et numériques.</p>
+				<p>Avec l’application Advance Playstream, il est possible d’écouter de la musique stockée sur des périphériques tels qu’un smartphone ou un NAS, mais aussi d’utiliser des services de streaming en ligne.</p>
+			</article>
+			<article>
+				<h2>Fiche technique</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Propriété</th>
+							<th>Valeur</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>STREAMING PC/MAC/NAS</td>
+							<td>YES</td>
+						</tr>
+						<tr>
+							<td>STREAMING SMARTPHONES</td>
+							<td>YES</td>
+						</tr>
+						<tr>
+							<td>STREAMING SERVICE</td>
+							<td>Spotify, Tidal, Tune-In, Qobuz</td>
+						</tr>
+						<tr>
+							<td>AUXILIARY INPUT</td>
+							<td>YES</td>
+						</tr>
+						<tr>
+							<td>APPS</td>
+							<td>Android & App store</td>
+						</tr>
+						<tr>
+							<td>WIFI</td>
+							<td>802.11 b/g/n</td>
+						</tr>
+						<tr>
+							<td>AUDIO FORMAT</td>
+							<td>APE, FLAC, WAV, ALAC, AAC, HE-AAC, MP3, WMA</td>
+						</tr>
+						<tr>
+							<td>DIMENSIONS</td>
+							<td>H.75 x l.14 x D.49/55mm</td>
+						</tr>				
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h2>Visuel</h2>
+				<img src="img/wtx.png" alt="">
+			</article>
+			<article>
+				<h2>Vidéo</h2>
+				<div class="video">
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/_7dbNQH5RbU" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
+			</article>
+			<a href="#" class="cta">En savoir plus</a>		
+		</div> 
+		<section id="best" class="container">
+			<div><h2>Meilleures ventes</h2></div>
+			<a href="#">
+				<article>
+					<h3>DX1</h3>
+					<img src="img/dx1.jpg" alt="">
+				</article>
+			</a>
+			<a href="#">
+				<article>
+					<h3>BX1</h3>
+					<img src="img/bx1.jpg" alt="">
+				</article>
+			</a>
+			<a href="#">
+				<article>
+					<h3>XA1200</h3>
+					<img src="img/xa1200.jpg" alt="">
+				</article>
+			</a>
+			<a href="#">
+				<article>
+					<h3>XI-50</h3>
+					<img src="img/x-i50-bt.jpg" alt="">
+				</article>
+			</a>
+		</section>
+		<section id="formulaire">
+			<div id="h2form"><h2>Quel mélomane êtes-vous ?</h2></div>
+			<p>Participez à notre sondage et gagnez 5% sur votre prochaine commande !</p>
+			<form>
+				<fieldset>
+					<legend>Votre profil</legend>
+					<input type="text" required placeholder="Nom">
+					<input type="text" required placeholder="Prénom">
+					<input type="tel" required placeholder="Téléphone">
+					<input type="email" required placeholder="E-mail">
+					<label for="date">Date de naissance :</label><br>
+					<input type="date" id="date" required>
+				</fieldset>
+				<fieldset>
+					<legend>Sondage</legend>
+					<label for="color">Attribuez une couleur à la musique :</label>
+					<input type="color" id="color">
+					<p>Quel style(s) de musique préférez-vous ?</p>
+					<input type="checkbox" id="rock">
+					<label for="rock">rock</label>
+					<input type="checkbox" id="rap">
+					<label for="rap">rap</label>
+					<input type="checkbox" id="electro">
+					<label for="electro">electro</label>
+					<input type="checkbox" id="classique">
+					<label for="classique">classique</label>
+					<input type="checkbox" id="world">
+					<label for="world">world</label>
+					<p>Si vous deviez écouter non-stop un genre, ce serait :</p>
+					<input type="radio" name="groupe" id="prock">
+					<label for="prock">Plutôt rock</label>
+					<input type="radio" name="groupe" id="pclassique">
+					<label for="pclassique">Plutôt classique</label>	
+					<p>Dans le style chanson française, préférez vous...</p>
+					<select>
+						<option selected disabled>Choisir</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>
+				</fieldset>
+				<button class="cta">Envoyer</button>
+			</form>
+		</section>
+		<section id="actualites">
+			<div><h2>Advance Actualités</h2></div>
+			<article>
+				<img src="img/X-i1100-detail.jpg" alt="">
+				<h3>Advance Lab</h3>
+				<small>Advance, <time datetime="2020-09-03">3 septembre 2020</time></small>
+				<p>La musique, invention de l’homme, est un art et une des pratiques les plus anciennes au monde. À travers les époques, les traditions, les différentes cultures, la musique engendre une sensation de plaisir, capable de procurer des émotions intenses. Ce sont ces notions de plaisir et d'émotions musicales qui ont conduit l'équipe d'Advance Acoustic à vouloir la reproduire sans compromis.</p>
+				<a href="#" class="cta">Lire la suite</a>
+			</article>
+			<article>
+				<img src="img/laudiodefrance.webp" alt="">
+				<h3>Test ampli Hifi Advance Acoustic X-i75 : élégant, bien conçu et destiné à toutes les musiques</h3>
+				<small>L'audio de France, <time datetime="2019-12-10">10 décembre 2019</time></small>
+				<p>Troisième amplificateur de la nouvelle gamme X-i d'Advance Acoustic, cet intégré stéréo ne surprend pas par ses lignes élégantes et le nombre de ses possibilités, car c'est habituel chez la marque française. Effectivement, Advance Acoustic s’évertue depuis sa création à proposer des appareils d’un rapport fonctionnalité/qualité/prix plus que sympathique ; le X-i75 n’échappe pas à cette règle.</p>
+				<a href="#" class="cta">Lire la suite</a>			
+			</article>
+			<article>
+				<img src="img/x-i75_test_on-mag.jpg" alt="">
+				<h3>ADVANCE Paris : la Haute-Fidélité musicale accessible</h3>
+				<small>On Mag, <time datetime="2019-05-24">24 mai 2019</time></small>
+				<p>La marque Advance Acoustic a démarré son activité à Toulouse, en fabricant des enceintes au rapport qualité/prix très étudié qui ont très rapidement connu le succès auprès des mélomanes passionnés de musique et de Haute-Fidélité. En 1997 elle se fait sérieusement remarquer en obtenant le titre de « meilleur rapport qualité-prix du marché « . Les années 2000 verront apparaître la naissance d’une gamme d’électroniques, tout en maintenant les tarifs abordables qui ont forgé son succès.</p>
+				<a href="#" class="cta">Lire la suite</a>		
+			</article>
+		</section>
+		<section id="distributeurs">
+			<div><h2>Distributeurs</h2></div>
+			<div id="map"></div>
+		</section> 
+		<div id="partage">
+			<h3>Partager :</h3>
+			<a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-pinterest"></i></a>
+		</div>
+		<div id="whitebar">
+			<a href="#"><i class="fa fa-3x fa-lock" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-3x fa-truck" aria-hidden="true"></i></a>	
+			<a href="#"><i class="fa fa-3x fa-money" aria-hidden="true"></i></a>	
+			<a href="#"><i class="fa fa-3x fa-phone" aria-hidden="true"></i></a>	
+			<a href="#"><i class="fa fa-3x fa-check" aria-hidden="true"></i></a>			
+		</div> 
+	</main>
+	<footer>
+		<div class="container">
+			<address>
+				<span id="addresse">Advance Paris</span>
+				13 rue du coq gaulois<br>
+				77170 Brie Comte Robert<br>
+				France<br>
+				Tél : +33 (0) 160 185 900<br>
+				Mail : info@advance-acoustic.com
+			</address>
+			<nav>
+				<h3>Informations</h3>
+				<ul>
+					<li><a href="#">La société</a></li>
+					<li><a href="#">Distributeurs</a></li>
+					<li><a href="#">Mention légales</a></li>
+					<li><a href="#">Confidentialité</a></li>
+					<li><a href="#">Plan du site</a></li>		
+				</ul>
+			</nav>
+			<nav>
+				<h3>Mon compte</h3>
+				<ul>
+					<li><a href="#">Mon panier</a></li>
+					<li><a href="#">Mon profil</a></li>
+					<li><a href="#">Mes commandes</a></li>
+					<li><a href="#">Garantie</a></li>
+					<li><a href="#">Connexion</a></li>
+				</ul>
+			</nav>
+			<nav>
+				<h3>Nous suivre</h3>
+				<a href="#"><i class="fa fa-3x fa-twitter"></i></a>
+				<a href="#"><i class="fa fa-3x fa-facebook"></i></a>
+				<a href="#"><i class="fa fa-3x fa-pinterest"></i></a><br>
+				<img src="img/logo.gif" alt="">
+			</nav>
+		</div>
+		<a href="#top" id="gototop" title="Retourner en haut de page"><span id="triangle-code"></span></a>
+	</footer>
+	<!-- JS -->
+		<script>
+			var scrollpos = window.scrollY;
+			var header = document.getElementById("navbar");
+			function add_class_on_scroll() { header.classList.add("sticky"); }
+			function remove_class_on_scroll() { header.classList.remove("sticky"); }
+			window.addEventListener('scroll', function(){ 
+			    scrollpos = window.scrollY;
+			    if(scrollpos > 10){ add_class_on_scroll(); }
+			    else { remove_class_on_scroll(); }
+			    console.log(scrollpos);
+			});
+		</script>
+		<script>
+			window.onscroll = function() {progressbarFunction()};
+			function progressbarFunction() {
+			  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+			  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+			  var scrolled = (winScroll / height) * 100;
+			  document.getElementById("myBar").style.width = scrolled + "%";
+			} 
+		</script>
+	<!-- JS -->
+</body>
+</html>
