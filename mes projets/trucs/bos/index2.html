@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<meta charset="utf-8">
+	<style>
+        #base {
+            position: absolute;
+            z-index: 100;
+        }
+        .engrenage {
+            position: absolute;
+        }
+        #grand1 {
+            top: 75px;
+            left: 180px;
+        }
+        #petit1 {
+            top: 160px;
+            left: 90px;
+        }
+        #petit2 {
+            top: 250px;
+            left: 130px;
+        }
+        #b1, #b2{
+            z-index: 101;
+            position: absolute;
+        }
+        #b2 {
+            left: 100px;
+        }
+	</style>
+</head>
+<body>
+    <img src="logo_bos2.svg" alt="" height="600" id="base">
+    <img src="logo_bos3.svg" alt="" height="230" id="grand1" class="engrenage">
+    <img src="logo_bos3.svg" alt="" height="110" id="petit1" class="engrenage">   
+    <img src="logo_bos3.svg" alt="" height="110" id='petit2' class="engrenage">   
+    <button id='b1'>Marche</button>
+    <button id='b2'>Arret</button>
+
+<script>
+
+let enMarche = false;
+let grand1 = document.querySelector('#grand1');
+let petit1 = document.querySelector('#petit1');
+let petit2 = document.querySelector('#petit2');
+
+function boxRotate(box, deg){
+	let transform = box.style.transform;
+	let degres = 0;
+	if (transform){
+		degres = Number(transform.match(/[+-]?\d+(.\d+)?/)[0]);
+	}
+	degres += deg;
+	box.style.transform = `rotate(${degres}deg)`;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+async function tourne(box, deg) {
+    while(enMarche){
+        boxRotate(box, deg);
+        await sleep(300);
+        boxRotate(box, deg);
+        await sleep(300);}
+}
+document.querySelector('#b1').addEventListener('click', function(){
+    enMarche = true;
+    tourne(grand1, 10);
+    tourne(petit1, -10);
+    tourne(petit2, -10);
+});
+
+document.querySelector('#b2').addEventListener('click', function(){
+    enMarche = false;
+});
+</script>
+
+</body>
+</html>

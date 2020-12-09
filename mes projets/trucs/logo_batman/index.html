@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<meta charset="utf-8">
+	<style>
+		#taille {
+			width: 50px;	
+			}
+	</style>
+</head>
+<body>
+	<button id='b1'>Aggrandir</button>
+	<button id='b2'>Diminuer</button>
+	<label for="taille">de (px) :</label>
+	<input type="number" id='taille' min = 0 value=50>
+	<br>
+<img src="batman-logo.svg" alt="batman" id='image' height="300px">
+
+<script>
+
+let image = document.querySelector('#image');
+let b1 = document.querySelector('#b1');
+let b2 = document.querySelector('#b2');
+let tailleModif = document.querySelector('#taille');
+
+function changeSize(magnitude){
+	let currentSize = image.height;
+	let newSize = currentSize + magnitude;
+	image.height = newSize;
+}
+b1.addEventListener('click', function(){
+	let change = parseInt(tailleModif.value, 10);
+	changeSize(change);
+})
+b2.addEventListener('click', function(){
+	let change = parseInt(tailleModif.value, 10);
+	changeSize(-change);
+})
+</script>
+
+</body>
+</html>
