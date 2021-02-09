@@ -1,0 +1,120 @@
+body {
+    background: url('../img/background.jpg') center fixed no-repeat;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+.hp, .mana {
+    display: inline-block;
+    height: 30px;
+    width: 200px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    position: relative;
+}
+.hp-progress {
+    background-color:rgba(212, 55, 55, 0.863);
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    top: 0;
+    z-index: -1;
+}
+.mana-progress {
+    background-color:rgba(15, 105, 189, 0.863);
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    top: 0;
+    z-index: -1;
+}
+#combat-log {
+    overflow: auto;
+    height: 400px;
+    width: 300px;
+    background-color:rgba(204, 194, 194, 0.904);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px;
+}
+.boss-dmg {
+    color:rgb(212, 11, 11);
+}
+.player-dmg {
+    color: rgb(46, 115, 243);
+}
+#boss img, #player img {
+    height: 200px;
+}
+#boss-ui, #player-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#boss, #player {
+    height: 200px;
+}
+#player-ui {
+    margin-top: 50px;
+}
+#controls button {
+    background-color: rgb(201, 206, 197);
+    border-radius: 0 0 20% 20%;
+    height: 30px;
+    font-size: 0.55rem;
+    width: 100px;
+    padding: 0px;
+}
+#btn-reset {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#death-message {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    border: rgb(179, 26, 26) 3px solid;
+    font-size: 1.2rem;
+    background-color: rgba(255, 246, 240, 0.9);
+    left: 38%;
+    top: 35%;
+    text-align: center;
+    line-height: 75px;
+    padding: 0 10px;
+}
+#btn-audio {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    width: 150px;
+}
+/* 1366 */
+@media screen and (min-width: 1366px) {
+    #controls button {
+        width: 150px;
+        font-size: 0.8rem;
+    }
+    #boss, #player {
+        height: 300px;
+    }
+    #boss img, #player img {
+        height: 300px;
+    }
+    .hp, .mana {
+        width: 300px;
+    }
+    #death-message {
+        top: 35%;
+        left: 42%;
+    }
+    .hp-progress {
+        width: 300px;
+    }
+    .mana-progress {
+        width: 300px;
+    }
+}

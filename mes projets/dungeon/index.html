@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Dungeon</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" href="img/favicon.ico">
+    </head>
+    <body> 
+        <ul id="combat-log">
+            <li>Vous êtes un héros envoyé tuer un dragon dans son antre, et vous voilà arrivé devant lui.</li>
+        </ul>
+        <div id="death-message"></div>
+        <button id="btn-audio">Activer l'audio</button>
+        <button id="btn-reset">Reset</button>
+        <div id="boss-ui">
+            <div class="hp">
+                <span id="boss-hp">200</span>
+                <div class="hp-progress" id="boss-progress"></div>
+            </div>
+            <div id="boss">
+                <img src="img/boss.jpg" alt="boss">
+            </div>
+        </div>
+        <div id="player-ui">
+            <div class="hp">
+                <span id="player-hp">100</span>
+                <div class="hp-progress" id="player-progress"></div>
+            </div>
+            <div id="player">
+                <img src="img/player.jpg" alt="player">
+            </div>
+            <div class="mana">
+                <span id="player-mana">100</span>
+                <div class="mana-progress"></div>
+            </div>
+        
+            <div id="controls">
+                <button id="btn-epee">Coup d'épée</button>
+                <button id="btn-feu">Boule de feu (30 MP)</button><br>
+                <button id="btn-soins">Soins (40 MP)</button>
+                <button id="btn-mana-pot">(2) Potion de mana</button>
+            </div>
+        </div>
+        <!-- pistes audio -->
+        <audio src="audio/fireball.mp3" id="audio-fireball"></audio>
+        <audio src="audio/heal.mp3" id="audio-heal"></audio>
+        <audio src="audio/potion.mp3" id='audio-potion'></audio>
+        <audio src="audio/sword.mp3" id="audio-sword"></audio>
+        <audio src="audio/victory.mp3" id="audio-win"></audio>
+        <audio src="audio/defeat.mp3" id="audio-lose"></audio>
+        
+        
+        <script src="js/jquery.js"></script>
+        <script>
+            // constantes
+            const $combatLog= $('#combat-log');
+            const $bossHp = $('#boss-hp');
+            const $playerMana = $('#player-mana');
+            const $playerHp = $('#player-hp');
+            const audios = document.querySelectorAll('audio');
+            // les booleans (conditions)
+            let bossAlive = true;
+            let playerAlive = true;
+            let audioOn = false;
+            // les objets (actions)
+            const epee = {
+                damage : 15,
+                manaCost : 0,
+            }
+            const bouleFeu = {
+                damage : 45,
+                manaCost : 30,
+            }
+            const soins = {
+                damage : 0,
+                manaCost : 40,
+                soin : 50,
+            }
+            let manaPot = {
+                damage : 0,
+                manaCost : 0,
+                quantity : 2,
+            }
+            // stopper et remettre à 0 l'audio
+            function stopAllAudio(){
+                $('audio').trigger('pause');
+                for (let i = 0; i < audios.length; i++) {
+                     audios[i].currentTime = 0;
+                }
+            }
+            // mettre à jour la boite de texte
+            function updateCombatLog(texte, boss=false){
+                if(boss){$('<li class="boss-dmg">').text(texte).appendTo($combatLog);
+                    $combatLog.scrollTop($combatLog[0].scrollHeight);
+                }else{
+                $('<li class="player-dmg">').text(texte).appendTo($combatLog);
+                    $combatLog.scrollTop($combatLog[0].scrollHeight);
+                }
+            }
+            // vérification et mort du boss
+            function checkIfBossDead(){
+                if($bossHp.text() <= 0){
+                    $bossHp.text('0')
+                    updateCombatLog("Félicitations ! Vous avez vaincu le boss !");
+                    bossAlive = false;
+                    $('#boss img').attr('src', 'img/boss_dead.jpg');
+                    if(audioOn){
+                        $('#audio-win').trigger('play');
+                    }
+                    $('#death-message').text('Félicitations ! Vous avez gagné !').fadeIn()
+                }
+            }
+            // vérification et mort du joueur
+            function checkIfPlayerDead(){
+                if($playerHp.text() <=0){
+                    $playerHp.text('0')
+                    updateCombatLog(`Vous êtes mort.`, boss);
+                    playerAlive = false;
+                    $('#player img').attr('src', 'img/player_dead.jpg');
+                    if(audioOn){
+                        $('#audio-lose').trigger('play');
+                    }
+                    $('#death-message').text('Aïe, coup dur ! Essaye encore.').fadeIn()
+                }
+            }
+            // tour du boss
+            function bossTurn(){
+                let bossDamage = Math.round(Math.random()*15)+15;
+                let currentPlayerHp = $playerHp.text();
+                currentPlayerHp -= bossDamage;
+                updateCombatLog(`Le boss vous inflige ${bossDamage} points de dégats !`, boss);
+                $playerHp.text(currentPlayerHp);
+                let widthValue = $playerHp.text();
+                if(widthValue > 100){widthValue = 100;}
+                $('#player-progress').css({
+                    width: widthValue + '%'
+                });
+                checkIfPlayerDead();
+            }
+            // tour du joueur et fin de tour
+            function endTurn(turnDamage,turnManaCost){
+                let currentBossHp = $bossHp.text();
+                let currentMana = $playerMana.text()
+                currentBossHp -= turnDamage;
+                currentMana -= turnManaCost;
+                $bossHp.text(currentBossHp);
+                $('#boss-progress').css({
+                    width: $bossHp.text()*100/200 + '%'
+                });
+                $playerMana.text(currentMana);
+                let widthValue = $playerMana.text();
+                if(widthValue > 100){widthValue = 100;}
+                $('.mana-progress').css({
+                    width: widthValue + '%'
+                });
+                checkIfBossDead();
+                if(bossAlive){bossTurn()};
+            }
+            // bouton coup d'épée
+            $('#btn-epee').click(function(){
+                if(bossAlive && playerAlive){
+                    let finalDamage = epee.damage+Math.round(Math.random()*10);
+                    updateCombatLog(`Votre coup d'épée inflige ${finalDamage} points de dégâts !`);
+                    if(audioOn){
+                        stopAllAudio();
+                        $('#audio-sword').trigger('play');
+                    }
+                    endTurn(finalDamage, epee.manaCost);
+            }});
+            // bouton boule de feu
+            $('#btn-feu').click(function(){
+                if(bossAlive && playerAlive){
+                if($playerMana.text() >= bouleFeu.manaCost){
+                    updateCombatLog(`Votre boule de feu inflige ${bouleFeu.damage} points de dégâts !`);
+                    if(audioOn){
+                        stopAllAudio();
+                        $('#audio-fireball').trigger('play');
+                    }
+                endTurn(bouleFeu.damage, bouleFeu.manaCost);
+                }else {
+                    updateCombatLog("Vous n'avez pas assez de mana.");
+                }
+            }});
+            // bouton soin
+            $('#btn-soins').click(function(){
+                if(bossAlive && playerAlive){
+                    if($playerMana.text() >= soins.manaCost){
+                        let finalSoin = soins.soin + +Math.round(Math.random()*20)
+                        let currentPlayerHp = $playerHp.text();
+                        currentPlayerHp = parseInt(currentPlayerHp, 10) + finalSoin
+                        $playerHp.text(currentPlayerHp)
+                        updateCombatLog(`Vous vous soignez pour ${finalSoin} points de vie.`);
+                        if(audioOn){
+                            stopAllAudio();
+                            $('#audio-heal').trigger('play');
+                        }
+                        endTurn(soins.damage, soins.manaCost)
+                    }else{
+                        updateCombatLog("Vous n'avez pas assez de mana.");
+                    }
+                }
+            })
+            // bouton potion de mana
+            $('#btn-mana-pot').click(function(){
+                if(bossAlive && playerAlive){
+                    if(manaPot.quantity >= 1){
+                        let potionValue = Math.round(Math.random()*10+35)
+                        let currentPlayerMana = $playerMana.text();
+                        currentPlayerMana = parseInt(currentPlayerMana, 10) + potionValue
+                        $playerMana.text(currentPlayerMana)
+                        updateCombatLog(`Votre potion de mana vous rend ${potionValue} points de mana`);
+                        manaPot.quantity--
+                        $(this).text(`(${manaPot.quantity}) Potion de mana`);
+                        if(audioOn){
+                            stopAllAudio();
+                            $('#audio-potion').trigger('play');
+                        }
+                        endTurn(manaPot.damage, manaPot.manaCost)
+                    }else{
+                        updateCombatLog("Vous n'avez plus de potion de mana.");
+                    }
+                }
+            })
+            // bouton audio
+            $('#btn-audio').click(function(){
+                if(audioOn){
+                    stopAllAudio();
+                    audioOn = false;
+                    $('#btn-audio').text("Activer l'audio");
+                }else {
+                audioOn = true;
+                $('#btn-audio').text("Désactiver l'audio");
+                }
+            });
+            // bouton reset
+            $('#btn-reset').click(function(){
+                $bossHp.text('200');
+                $playerHp.text('100');
+                $playerMana.text('100');
+                manaPot.quantity = 2;
+                $('#btn-mana-pot').text(`(${manaPot.quantity}) Potion de mana`);
+                playerAlive = true;
+                bossAlive = true;
+                $('#boss img').attr('src', 'img/boss.jpg');
+                $('#player img').attr('src', 'img/player.jpg');
+                $('#death-message').hide();
+                $combatLog.find('li:not(:first-child)').remove();
+                $('#player-progress').css('width', '');
+                $('#boss-progress').css('width', '');
+                $('.mana-progress').css('width', '');
+                stopAllAudio();
+            })
+        </script>
+    </body>
+</html>
