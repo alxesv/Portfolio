@@ -1,2 +1,2 @@
 # portfolio
-Mon portfolio, étudiant bac + 1 intégrateur web - CNAM (Conservatoire National des Arts et Métiers)
+Mon portfolio, étudiant bac + 2 Développeur Web - Webitech
